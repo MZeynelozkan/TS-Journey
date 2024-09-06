@@ -1,10 +1,18 @@
-let username = "Zeynel";
-console.log(username);
+let myName: string = "Zeynel";
+let meaningOfLife: number;
+let isLoading: boolean;
+let album: any;
 
-let a: number = 12;
-let b: string = "6";
-let c: number = 2;
+myName = "John";
+meaningOfLife = 42;
+isLoading = true;
+album = 5150;
 
-console.log(a / b);
+function sum(a: number, b: number) {
+  return a + b;
+}
 
-console.log(c * b);
+let postId: string | number;
+let isActive: number | boolean;
+
+let re: RegExp = /\w+/g;
