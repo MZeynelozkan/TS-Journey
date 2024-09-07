@@ -1,68 +1,25 @@
 "use strict";
-// Literal types
-let myName;
-let userName;
-userName = "Amy";
-// functions
-function add(a, b) {
-    return a + b;
-}
-function logMsg(message) {
-    console.log(message);
-}
-logMsg("Hello");
-logMsg(add(2, 3));
-function subtract(c, d) {
-    return c - d;
-}
-// interface mathFunction {
-//   (a: number, b: number): number;
-// }
-// Eger Fonksiyonda default valueler var ise fonksiyon imzalari calismaz
-let multiply = function (c, d) {
-    return c * d;
-};
-logMsg(multiply(2, 2));
-// Optional parameters
-const addAll = (a, b, c) => {
-    if (typeof c !== "undefined")
-        return a + b + c;
-    return a + b;
-};
-// Default param value
-const sumAll = (a = 10, b, c = 2) => {
-    return a + b + c;
-};
-logMsg(addAll(2, 3, 2));
-logMsg(addAll(2, 3));
-logMsg(sumAll(2, 3));
-logMsg(sumAll(undefined, 3));
-// Rest Parameters
-const tottal = (a, ...nums) => {
-    return a + nums.reduce((prev, curr) => prev + curr);
-};
-logMsg(tottal(1, 2, 3, 4));
-logMsg(tottal(1, 2));
-const createError = (errMsg) => {
-    throw new Error("errMsg");
-};
-const infinite = () => {
-    let i = 1;
-    while (true) {
-        i++;
-        if (i > 100)
-            break;
+// Convert to more or less specific
+let a = "Hello";
+let b = a; // less specific
+let c = a; // more specific
+let d = "world";
+let e = "world"; // Bu sekilde olan oklarin oldugu kisimlar tsx dosylari olarak reactta kullanilmaz
+function addOrConcat(a, b, c) {
+    if (c === "add") {
+        return a + b;
     }
-};
-// custom type guard
-const isNumber = (value) => {
-    return typeof value === "number" ? true : false;
-};
-// use of the never type
-const numberOrString = (value) => {
-    if (typeof value === "string")
-        return "string";
-    if (isNumber(value))
-        return "number";
-    return createError("This should never happen");
-};
+    return "" + a + b;
+}
+let myVal = addOrConcat(2, 2, "concat");
+// Be careful! TS sees no problem - but a string is returned // dikkatli ol TS problem  oldugunu dusunmuyor fakat string dondurulecek fonksiyondan
+let nextVal = addOrConcat(2, 2, "concat");
+// 10 as string calismiyor fakat ikinci uyguladigimz calsiiyor 10 as unknown sonra as string olarak yapariz double casting ile
+// 10 as string;
+10;
+// The DOM
+const img = document.querySelector("img");
+const myImg = document.getElementById("#img");
+const nextImg = document.getElementById("#img");
+img.src;
+myImg.src;

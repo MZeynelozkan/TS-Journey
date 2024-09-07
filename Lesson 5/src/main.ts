@@ -1,98 +1,40 @@
-// Type Aliases
-type stringOrNumber = string | number;
+// Type Alias // Tip Ornekleri
+type One = string;
+type Two = string | number;
+type Three = "hello";
 
-type stringOrNumberArray = (string | number)[];
+// Convert to more or less specific
+let a: One = "Hello";
+let b = a as Two; // less specific
+let c = a as Three; // more specific
 
-type Guitarist = {
-  name?: string;
-  active: boolean;
-  albums: stringOrNumberArray;
-};
+let d = <One>"world";
+let e = <string | number>"world"; // Bu sekilde olan oklarin oldugu kisimlar tsx dosylari olarak reactta kullanilmaz
 
-type userId = stringOrNumber;
-
-// Literal types
-let myName: "Dave";
-
-let userName: "Dave" | "John" | "Amy";
-
-userName = "Amy";
-
-// functions
-function add(a: number, b: number): number {
-  return a + b;
-}
-
-function logMsg(message: any): void {
-  console.log(message);
-}
-
-logMsg("Hello");
-logMsg(add(2, 3));
-
-function subtract(c: number, d: number): number {
-  return c - d;
-}
-
-type mathFunction = (a: number, b: number) => number;
-// interface mathFunction {
-//   (a: number, b: number): number;
-// }
-
-// Eger Fonksiyonda default valueler var ise fonksiyon imzalari calismaz
-
-let multiply: mathFunction = function (c, d) {
-  return c * d;
-};
-
-logMsg(multiply(2, 2));
-
-// Optional parameters
-const addAll = (a: number, b: number, c?: number): number => {
-  if (typeof c !== "undefined") return a + b + c;
-
-  return a + b;
-};
-
-// Default param value
-const sumAll = (a: number = 10, b: number, c: number = 2): number => {
-  return a + b + c;
-};
-
-logMsg(addAll(2, 3, 2));
-logMsg(addAll(2, 3));
-logMsg(sumAll(2, 3));
-logMsg(sumAll(undefined, 3));
-
-// Rest Parameters
-const tottal = (a: number, ...nums: number[]): number => {
-  return a + nums.reduce((prev, curr) => prev + curr);
-};
-
-logMsg(tottal(1, 2, 3, 4));
-logMsg(tottal(1, 2));
-
-const createError = (errMsg: string): never => {
-  throw new Error("errMsg");
-};
-
-const infinite = () => {
-  let i: number = 1;
-  while (true) {
-    i++;
-    if (i > 100) break;
+function addOrConcat(
+  a: number,
+  b: number,
+  c: "add" | "concat"
+): number | string {
+  if (c === "add") {
+    return a + b;
   }
-};
+  return "" + a + b;
+}
 
-// custom type guard
-const isNumber = (value: any): boolean => {
-  return typeof value === "number" ? true : false;
-};
+let myVal: string = addOrConcat(2, 2, "concat") as string;
 
-// use of the never type
-const numberOrString = (value: number | string): string => {
-  if (typeof value === "string") return "string";
-  if (isNumber(value)) return "number";
+// Be careful! TS sees no problem - but a string is returned // dikkatli ol TS problem  oldugunu dusunmuyor fakat string dondurulecek fonksiyondan
+let nextVal: number = addOrConcat(2, 2, "concat") as number;
 
-  return createError("This should never happen");
-};
+// 10 as string calismiyor fakat ikinci uyguladigimz calsiiyor 10 as unknown sonra as string olarak yapariz double casting ile
+// 10 as string;
+10 as unknown as string;
+
+// The DOM
+const img = document.querySelector("img")!;
+const myImg = document.getElementById("#img") as HTMLImageElement;
+const nextImg = <HTMLImageElement>document.getElementById("#img");
+
+img.src;
+myImg.src;
